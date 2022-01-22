@@ -12,12 +12,10 @@ var factory = new ConnectionFactory() { HostName = "localhost" };
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
 {
+    channel.ExchangeDeclare(exchange: "book-event", type: ExchangeType.Fanout);
+    var queueName = channel.QueueDeclare().QueueName;
 
-    channel.QueueDeclare(queue: "basic-queue",
-                         durable: false,
-                         exclusive: false,
-                         autoDelete: false,
-                         arguments: null);
+    channel.QueueBind(queueName, "book-event", routingKey: "");
 
     var consumer = new EventingBasicConsumer(channel);
 
@@ -34,7 +32,7 @@ using (var channel = connection.CreateModel())
         Console.WriteLine($"Received {notification?.Event}");
     };
 
-    channel.BasicConsume(queue: "basic-queue",
+    channel.BasicConsume(queue: queueName,
                          autoAck: true,
                          consumer: consumer);
 

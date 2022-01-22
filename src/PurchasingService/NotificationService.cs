@@ -18,16 +18,13 @@ namespace PurchasingService
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "basic-queue",
-                                                 durable: false,
-                                                 exclusive: false,
-                                                 autoDelete: false,
-                                                 arguments: null);
+                channel.ExchangeDeclare(exchange: "book-event", type: "fanout");
+
                 string jsonified = JsonSerializer.Serialize(message);
 
                 var body = Encoding.UTF8.GetBytes(jsonified);
-                channel.BasicPublish(exchange: "",
-                                        routingKey: "basic-queue",
+                channel.BasicPublish(exchange: "book-event",
+                                        routingKey: "",
                                         basicProperties: null,
                                         body: body);
                 Console.WriteLine(" [x] Sent {0}", message.Event);
