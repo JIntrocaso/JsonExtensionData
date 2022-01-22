@@ -3,7 +3,7 @@ using Sender.Models;
 using System.Text;
 using System.Text.Json;
 
-namespace Sender
+namespace PurchasingService
 {
     public class NotificationService
     {

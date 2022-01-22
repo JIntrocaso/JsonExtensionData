@@ -1,4 +1,4 @@
-﻿using Sender;
+﻿using PurchasingService;
 
 var notificationService = new NotificationService();
 var bookService = new BookService(notificationService);

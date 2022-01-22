@@ -1,8 +1,8 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using Receiver.Models;
 using System.Text;
 using System.Text.Json;
+using SystemMonitor.Models;
 
 var factory = new ConnectionFactory() { HostName = "localhost" };
 using (var connection = factory.CreateConnection())
@@ -23,7 +23,7 @@ using (var channel = connection.CreateModel())
         var message = Encoding.UTF8.GetString(body);
         var notification = JsonSerializer.Deserialize<Notification>(message);
 
-        Console.WriteLine($"Received {notification.Event}");
+        Console.WriteLine($"Received {notification?.Event}");
     };
 
     channel.BasicConsume(queue: "basic-queue",

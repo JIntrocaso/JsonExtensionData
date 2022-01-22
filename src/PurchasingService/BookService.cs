@@ -1,7 +1,7 @@
 ﻿using Sender.Models;
 using System.Text.Json;
 
-namespace Sender
+namespace PurchasingService
 {
     public class BookService
     {
