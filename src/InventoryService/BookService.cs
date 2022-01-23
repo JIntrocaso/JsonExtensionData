@@ -5,14 +5,15 @@ namespace InventoryService
 {
     public class BookService
     {
-        public static IEnumerable<Book> books = GetBooks();
+        private static readonly IEnumerable<Book> books = GetBooks();
+        private static readonly JsonSerializerOptions serializerOptions = new() { PropertyNameCaseInsensitive = true };
         public static IEnumerable<Book> GetBooks()
         {
             var inputFileName = "books.json";
 
             string fileText = File.ReadAllText(inputFileName);
 
-            return JsonSerializer.Deserialize<IEnumerable<Book>>(fileText) ?? new List<Book>();
+            return JsonSerializer.Deserialize<IEnumerable<Book>>(fileText, serializerOptions) ?? new List<Book>();
         }
 
         public Book? GetBookByISBN(string isbn)

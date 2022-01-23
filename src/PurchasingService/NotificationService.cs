@@ -1,5 +1,5 @@
-﻿using RabbitMQ.Client;
-using Sender.Models;
+﻿using PurchasingService.Models;
+using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 

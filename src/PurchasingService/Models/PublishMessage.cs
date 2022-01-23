@@ -1,12 +1,18 @@
-﻿namespace Sender.Models
+﻿namespace PurchasingService.Models
 {
     public class PublishMessage
     {
-        public Guid MessageId { get; set; } = Guid.NewGuid();
-        public DateTime Timestamp { get; set; }
-        public string Sender { get; set; } = "DataService";
-        public string Event { get; set; } = string.Empty;
+        public PublishMessage(string sender, string eventType, object? payload)
+        {
+            Sender = sender;
+            Event = eventType;
+            Payload = payload;
+        }
 
-        public object Payload { get; set; }
+        public Guid MessageId => Guid.NewGuid();
+        public DateTime Timestamp => DateTime.UtcNow;
+        public string Sender { get; init; } = string.Empty;
+        public string Event { get; init; } = string.Empty;
+        public object? Payload { get; init; }
     }
 }

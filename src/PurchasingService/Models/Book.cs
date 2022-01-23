@@ -1,8 +1,7 @@
-﻿namespace Sender.Models
+﻿namespace PurchasingService.Models
 {
     public class Book
     {
-
         public string ISBN { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Subtitle { get; set; } = string.Empty;
