@@ -21,9 +21,11 @@ using (var channel = connection.CreateModel())
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
-        var notification = JsonSerializer.Deserialize<Notification>(message);
 
-        Console.WriteLine($"Received {notification.Event}");
+        var notification = JsonSerializer.Deserialize<Notification>(message);
+        var senderName = notification?.Properties?.GetValueOrDefault("SenderName");
+
+        Console.WriteLine($"Received event: {notification?.Event} Sent by: {senderName}");
     };
 
     channel.BasicConsume(queue: "basic-queue",
